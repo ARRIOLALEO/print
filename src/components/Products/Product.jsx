@@ -6,6 +6,7 @@ function Product({id,data}){
     const {dispacher} = useContext(CartContext)
     const handlerAddToCart = () =>{
         dispacher({type:actions.ADDTOCAR,payload:{...data,id:id,qqt:qqt}})
+        setQtt(0)
     }
     return(
         <div>

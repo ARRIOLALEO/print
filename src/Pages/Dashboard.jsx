@@ -1,16 +1,38 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import Header from '../components/commons/Header'
+import {GeneralAuthContext} from '../contex/GeneralAuthContext'
 import FormProducts from '../components/FormProducts'
-import { Grid } from '@mui/material'
+import { Grid,List,ListItemButton,Divider } from '@mui/material'
+import {Link, Navigate,Outlet} from 'react-router-dom'
 
 export default function Dashboard() {
+  const {user} = useContext(GeneralAuthContext )
   return (
+      <>
+      {user?(
       <>
       <Header/>
       <Grid container spacing={2}>
-        <Grid item sx={2} md={4}>Lateral Menu</Grid>
-        <Grid item sx={2} md={4}><FormProducts/></Grid>
+        <Grid item sx={2} md={4}>
+          <List>
+            <ListItemButton>
+              <Link to="see-produts">All Products</Link>
+              <Divider/>
+            </ListItemButton>
+            <ListItemButton>
+              <Link to="add-product">Add Produc</Link>
+              <Divider/>
+            </ListItemButton>
+            <ListItemButton>
+              <Link to="orders">Orders</Link>
+              <Divider/>
+            </ListItemButton>
+          </List>
+        </Grid>
+        <Grid item sx={2} md={4}><Outlet/></Grid>
       </Grid>
+      </>):(<Navigate to="/login"/>)
+      }
       </>
   )
 }

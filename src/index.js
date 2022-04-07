@@ -10,7 +10,6 @@ import {BrowserRouter} from 'react-router-dom'
 
 
 ReactDOM.render(
-  <React.StrictMode>
     <FirestoreProvider>
           <AuthProvider>
             <CardProvider>
@@ -19,8 +18,7 @@ ReactDOM.render(
               </BrowserRouter>
             </CardProvider>
           </AuthProvider>
-    </FirestoreProvider>
-  </React.StrictMode>,
+    </FirestoreProvider>,
   document.getElementById('root')
 );
 

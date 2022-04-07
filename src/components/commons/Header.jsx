@@ -1,9 +1,11 @@
 import React,{useContext} from 'react'
 import {CartContext} from '../../contex/GeneralCart'
+import {GeneralAuthContext} from '../../contex/GeneralAuthContext'
 import { Grid, Button,Box,Typography,CardMedia } from '@mui/material'
 import { Link } from 'react-router-dom'
 export default function Header() {
   const {allProductsInCart} = useContext(CartContext)
+  const {user,logOut} = useContext(GeneralAuthContext)
   const amountOfProducts = allProductsInCart.reduce((acc,product)=> product.qqt + acc,0)
   return (
     <Grid container spacing={2} style={{display:"flex",justifyContent:"space-around"}}>
@@ -14,6 +16,7 @@ export default function Header() {
           <Link to="/dashboard" style={{textDecoration:"none",color:"black"}}><Typography sx={{minWidth:150}}>DashBoard</Typography></Link>
           <Typography sx={{minWidth:150}}>About US</Typography>
           <Link to="/cart-description"><Button color='secondary' variant="contained">CART {amountOfProducts} Products</Button></Link>
+          {!user?(<Link to="/login"><Button variant="contained">Login</Button></Link>):(<Button onClick={()=> logOut()} variant='contained' style={{backgroundColor:"red"}}>Log Out</Button>)}
         </Box>
       </Grid>
     </Grid>

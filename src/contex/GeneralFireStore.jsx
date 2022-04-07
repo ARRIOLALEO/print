@@ -1,5 +1,5 @@
 import { createContext,useState,useEffect } from "react";
-import {collection,addDoc,getDocs, doc} from 'firebase/firestore'
+import {collection,addDoc,getDocs, doc,onSnapshot} from 'firebase/firestore'
 import * as firebaseApp from '../firebase/configFirebase'
 import {ref,uploadBytesResumable,getDownloadURL} from 'firebase/storage'
 export const  FirestoreContext = createContext();
@@ -33,6 +33,9 @@ const FirestoreProvider = ({children}) =>{
     useEffect(()=>{
         getAllProducts()
     },[])
+    // this is an observer that check if there is new data on my database that is locaded on firestore
+
+   
     
     //TODOS modify Products
     //DELETE producs
