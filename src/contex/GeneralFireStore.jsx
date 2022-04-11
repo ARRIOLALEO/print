@@ -5,6 +5,7 @@ import {ref,uploadBytesResumable,getDownloadURL,deleteObject,} from 'firebase/st
 export const  FirestoreContext = createContext();
 
 const refCollection = collection(firebaseApp.firestore,'products')
+const refCollectionOrders = collection(firebaseApp.firestore,'Orders')
 
 const FirestoreProvider = ({children}) =>{
     const [allProducts,setAllProducts] = useState([])
@@ -20,7 +21,19 @@ const FirestoreProvider = ({children}) =>{
             },(err)=>{console.log(err.message)},()=>getDownloadURL(uploadImage.snapshot.ref).then((url)=> addDoc(refCollection,{...newProduct,img:url}))
         )
     }
+    // function that created a new order
+    //TODO users now this app will not rememeber address we will be working with one order
+    const newOrder = async(customerInformation,order) =>{
+        try{
+        console.log("im here")
+         addDoc(refCollectionOrders,{...customerInformation,...order})
+        console.log(order)
+        return "Thanks So Much for Your Order "
+        }catch(err){
+            return err.message
+        }
 
+    }
     //  this function get the data from firestore and save it in my state
     const getAllProducts = async () =>{
         const productsFromFirestore = await getDocs(refCollection)
@@ -83,7 +96,8 @@ const FirestoreProvider = ({children}) =>{
         allProducts:allProducts,
         addProduct:addProduct,
         deleteProduct:deleteProduct,
-        modifyProduct:modifyProduct
+        modifyProduct:modifyProduct,
+        newOrder:newOrder
     }
 
     return(

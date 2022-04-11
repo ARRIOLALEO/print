@@ -6,6 +6,9 @@
   justify-content: space-around;
   align-items: center;
 }
+.inputMakeAndOrder{
+  margin-bottom: 1rem;
+}
 .HeroBackground h1{
   color:white;
   font-size: 5rem;
